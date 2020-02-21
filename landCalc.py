@@ -16,11 +16,13 @@ wheatCSV = "Wheat.csv"
 goldCSV = "ExampleGoldCsv.csv"
 ironCSV =  "Iron.csv"
 
-reader = csv.reader(open(goldCSV, "rb"), delimiter=",")
-x = list(reader)
-result = np.array(x).astype("float")
+reader = csv.reader(open(goldCSV, "r"), delimiter=",")
+goldCSV = list(reader)
+goldMap = np.array(goldCSV).astype("float")
 
-print(result)
+
+
+print(goldMap)
 
 landBorder = 10
 
