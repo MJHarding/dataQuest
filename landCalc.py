@@ -13,10 +13,17 @@ import csv
 
 oilCSV = "Oil.csv"
 wheatCSV = "Wheat.csv"
-goldCSV = "Gold.csv"
+goldCSV = "ExampleGoldCsv.csv"
 ironCSV =  "Iron.csv"
 
-reader = csv.reader(open("CsvExample.csv"))
+reader = csv.reader(open(goldCSV, "rb"), delimiter=",")
+x = list(reader)
+result = np.array(x).astype("float")
+
+print(result)
+
+landBorder = 10
+
 
 
 
