@@ -1,4 +1,4 @@
-# dataQuest
+# Data Quest
 hackathon code for TensorBros ( Matt Harding + Jamie Garvin ) 
 
 ## Objective for hackathon
