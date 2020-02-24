@@ -14,29 +14,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 
 
-
-
 History = "HistoricValues.csv"
+oilCSV = "OilCsv.csv"
+wheatCSV = "WheatCsv.csv"
+goldCSV = "GoldCsv.csv"
+ironCSV =  "IronCsv.csv"
 
 goldIDX = 2
 oilIDX = 3
 wheatIDX = 4
 ironIDX = 5
 
-
-landBorder = 10
-
 #reader = csv.reader(open(goldCSV, "r"), delimiter=",")
 #goldCSV = list(reader)
 #goldMap = np.array(goldCSV)
 
-print(goldMap)
-print(goldMap.shape)
 
-oilCSV = "OilCsv.csv"
-wheatCSV = "WheatCsv.csv"
-goldCSV = "GoldCsv.csv"
-ironCSV =  "IronCsv.csv"
 
 goldReader = csv.reader(open(goldCSV, "r"), delimiter=",")
 wheatReader = csv.reader(open(wheatCSV, "r"), delimiter=",")
@@ -55,10 +48,7 @@ finalArray = np.empty([1000,1000], dtype=float)
 coords = []
 
 
-
-
 """  
-TODO 
 Parse values over time 
 """
 
@@ -74,26 +64,26 @@ months = np.delete(months,0,0)
 
 goldHist = historyValues[:,[goldIDX]]
 goldHist = np.delete(goldHist, 0, 0).astype('float')
-#print(goldHist)
+print(goldHist)
 goldMean = np.mean(goldHist)
-print("gols", goldMean)
+print("gold", goldMean)
 
 ironHist = historyValues[:,[ironIDX]]
 ironHist = np.delete(ironHist, 0, 0).astype('float')
-#print(ironHist)
+print(ironHist)
 ironMean = np.mean(ironHist)
 print("iron ", ironMean)
 
 
 oilHist = historyValues[:,[oilIDX]]
 oilHist = np.delete(oilHist, 0, 0).astype('float')
-#print(oilHist)
+print(oilHist)
 oilMean = np.mean(oilHist)
 print("oil", oilMean)
 
 wheatHist = historyValues[:,[wheatIDX]]
 wheatHist = np.delete(wheatHist, 0, 0).astype('float')
-#print(wheatHist)
+print(wheatHist)
 wheatMean = np.mean(wheatHist)
 print(wheatMean)
 #
@@ -107,14 +97,12 @@ plt.plot(wheatHist, label = "Wheat")
 plt.legend(loc = "upper right")
 
 """ 
-TODO 
 Algorithm to select land
 """
 
 
 def concatArr():
     array = np.dstack((goldArray, wheatArray, oilArray, ironArray))
-#    print(array.shape)
     return array
     
 def applyWeight(goldWeight, ironWeight, wheatWeight, oilWeight):
@@ -125,13 +113,10 @@ def applyWeight(goldWeight, ironWeight, wheatWeight, oilWeight):
         wheatArray[i] = wheatArray[i] * wheatWeight        
         finalArray[i] = goldArray[i] + ironArray[i] + oilArray[i] + wheatArray[i]
 
-#    plt.imshow(wheatArray[9:20,254:265], cmap='RdPu')
-#    plt.figure(figsize=(20,20))
-#    plt.show()
-        
-        
-#    print (finalArray[i])
-#    print(finalArray.shape)
+def showHeatMap(x, y, array):
+    plt.imshow(array[x:(x+11),y:(y+11)], cmap='RdPu')
+    plt.figure(figsize=(20,20))
+    plt.show()
     
     
 def findSubScore(arr):
@@ -145,19 +130,16 @@ def findSubScore(arr):
                 for z in range (z + 3):
                     sum = arr[x] + arr[y] + arr[z]
                     coords.append((sum, (x, y)))
-                    print(coords[x])
+#                    print(coords[x])
                     
 
 applyWeight(10.04,6.92,3.02,14.2)
 array = concatArr()
 
-  
-# A simple function to find sum of all  
-# sub-squares of size k x k in a given 
-# square matrix of size n x n 
+
 def printSumSimple(mat, k): 
     list = []
-    # k must be smaller than or equal to n 
+    n = 5
     if (k > n): 
         return
   
@@ -169,22 +151,19 @@ def printSumSimple(mat, k):
         # sub-square of size k x k 
         for j in range(n - k + 1): 
               
-            # Calculate and print sum of  
-            # current sub-square 
+            # Calculate and print sum 
             sum = 0
             for p in range(i, k + i): 
                 for q in range(j, k + j): 
                     sum += mat[p][q] 
-#            print(sum, "x = " ,p , "y = "  ,q , end = " ") 
             list.append((sum, (p,q)))
-        # Line separator for sub-squares  
-        # starting with next row 
+       
             print() 
             sortedList = sorted(list, reverse = True ,key = lambda x: x[0])
             print(sortedList[0:100])   
         
         
-#printSumSimple(finalArray, 10)
+printSumSimple(finalArray, 10)
 
-
+#showHeatMap(9,254, finalArray)
 
